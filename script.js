@@ -4,15 +4,17 @@ const weatherDiv = document.querySelector("#weather");
 
 async function getWeather(city) {
 
-    const apiKey = "DT32FNA6JU5F36SSKNRN5G9KY";
+    const apiKey = "YOUR_API_KEY";
 
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${apiKey}`;
 
     const response = await fetch(url);
 
-    const data = await response.json();
+    if (!response.ok) {
+        throw new Error("City not found");
+    }
 
-    return data;
+    return await response.json();
 }
 
 form.addEventListener("submit", async (event) => {
@@ -21,17 +23,28 @@ form.addEventListener("submit", async (event) => {
 
     const city = cityInput.value;
 
-    const data = await getWeather(city);
+    weatherDiv.innerHTML = "<h2>Loading...</h2>";
 
-    weatherDiv.innerHTML = `
-        <h2>${data.address}</h2>
+    try {
 
-        <p>Temperature : ${data.currentConditions.temp} °C</p>
+        const data = await getWeather(city);
 
-        <p>Conditions : ${data.currentConditions.conditions}</p>
+        weatherDiv.innerHTML = `
+            <h2>${data.address}</h2>
 
-        <p>Humidity : ${data.currentConditions.humidity}%</p>
+            <p>🌡 Temperature : ${data.currentConditions.temp} °C</p>
 
-        <p>Wind Speed : ${data.currentConditions.windspeed} km/h</p>
-    `;
+            <p>☁ Condition : ${data.currentConditions.conditions}</p>
+
+            <p>💧 Humidity : ${data.currentConditions.humidity}%</p>
+
+            <p>💨 Wind Speed : ${data.currentConditions.windspeed} km/h</p>
+        `;
+
+    } catch (error) {
+
+        weatherDiv.innerHTML = `<h2>${error.message}</h2>`;
+
+    }
+
 });
