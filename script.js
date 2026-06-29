@@ -14,3 +14,24 @@ async function getWeather(city) {
 
     return data;
 }
+
+form.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    const city = cityInput.value;
+
+    const data = await getWeather(city);
+
+    weatherDiv.innerHTML = `
+        <h2>${data.address}</h2>
+
+        <p>Temperature : ${data.currentConditions.temp} °C</p>
+
+        <p>Conditions : ${data.currentConditions.conditions}</p>
+
+        <p>Humidity : ${data.currentConditions.humidity}%</p>
+
+        <p>Wind Speed : ${data.currentConditions.windspeed} km/h</p>
+    `;
+});
