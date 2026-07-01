@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Weather App</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -13,22 +17,41 @@
     <div class="container">
 
         <h1>🌤 Weather App</h1>
+        <p class="subtitle">Get the latest weather in any city</p>
 
         <form id="weather-form">
+
             <input
                 type="text"
                 id="city"
-                placeholder="Enter city name"
+                placeholder="Enter city name..."
                 required
             >
-            <button type="submit">Search</button>
+
+            <button type="submit">
+                Search
+            </button>
+
         </form>
 
-        <div id="weather"></div>
+        <div id="weather">
+
+            <div class="placeholder">
+
+                <h2>👋 Welcome</h2>
+
+                <p>
+                    Search for any city to view its current weather.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
